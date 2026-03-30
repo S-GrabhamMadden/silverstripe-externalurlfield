@@ -153,8 +153,6 @@ class ExternalURLField extends UrlField
      * Server side validation, using a regular expression.
      *
      * @param mixed $validator
-     * @TODO SSU RECTOR UPGRADE TASK - SilverStripe\Forms\FormField::validate: Removed deprecated parameter $validator in FormField::validate()
-     * @TODO SSU RECTOR UPGRADE TASK - FormField::validate: Changed return type for method FormField::validate() from dynamic to ValidationResult
      */
     #[Override]
     public function validate($validator)
