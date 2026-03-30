@@ -2,6 +2,7 @@
 
 namespace Sunnysideup\ExternalURLField;
 
+use Override;
 use SilverStripe\Forms\UrlField;
 use SilverStripe\ORM\DataObject;
 use SilverStripe\ORM\FieldType\DBHTMLText;
@@ -55,6 +56,7 @@ class ExternalURLField extends UrlField
         parent::__construct($name, $title, $value);
     }
 
+    #[Override]
     public function Type()
     {
         return 'url text';
@@ -76,7 +78,7 @@ class ExternalURLField extends UrlField
 
         if (is_array($this->config[$name])) {
             if (! is_array($val)) {
-                user_error("The value for {$name} must be an array");
+                user_error(sprintf('The value for %s must be an array', $name));
             }
 
             $this->config[$name] = array_merge($this->config[$name], $val);
@@ -95,7 +97,7 @@ class ExternalURLField extends UrlField
     public function getConfig($name = null)
     {
         if ($name) {
-            return isset($this->config[$name]) ? $this->config[$name] : null;
+            return $this->config[$name] ?? null;
         }
 
         return $this->config;
@@ -106,6 +108,7 @@ class ExternalURLField extends UrlField
      *
      * @return array Attributes
      */
+    #[Override]
     public function getAttributes()
     {
         $parentAttributes = parent::getAttributes();
@@ -136,6 +139,7 @@ class ExternalURLField extends UrlField
      *
      * @return $this
      */
+    #[Override]
     public function setValue($url, $data = null)
     {
         if ($url) {
@@ -150,6 +154,7 @@ class ExternalURLField extends UrlField
      *
      * @param mixed $validator
      */
+    #[Override]
     public function validate($validator)
     {
         $this->value = trim(string: (string) $this->value);
@@ -167,6 +172,7 @@ class ExternalURLField extends UrlField
         return parent::validate($validator);
     }
 
+    #[Override]
     public function RightTitle()
     {
         if ($this->value) {
@@ -189,11 +195,11 @@ class ExternalURLField extends UrlField
     protected function rebuildURL($url)
     {
         $defaults = $this->config['defaultparts'];
-        if (! preg_match('#^[a-zA-Z]+://#', $url)) {
+        if (! preg_match('#^[a-zA-Z]+://#', (string) $url)) {
             $url = $defaults['scheme'] . '://' . $url;
         }
 
-        $parts = parse_url($url);
+        $parts = parse_url((string) $url);
         if (! $parts) {
             //can't parse url, abort
             return '';

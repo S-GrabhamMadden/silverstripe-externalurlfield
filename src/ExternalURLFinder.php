@@ -18,15 +18,17 @@ class ExternalURLFinder
         if ($removeFinalSlash) {
             $link = rtrim($link, '/');
         }
+
         $linkObject = DBField::create_field('ExternalURL', $link);
         $domain = $linkObject->Domain();
-        if (strpos($domain, 'www.') === 0) {
+        if (str_starts_with((string) $domain, 'www.')) {
             $domainWWW = $domain;
-            $domainNoWWW = substr($domain, 4);
+            $domainNoWWW = substr((string) $domain, 4);
         } else {
             $domainWWW = 'www' . $domain;
             $domainNoWWW = $domain;
         }
+
         $items = [
             $domainWWW,
             $domainNoWWW,
