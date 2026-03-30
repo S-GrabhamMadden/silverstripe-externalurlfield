@@ -86,6 +86,10 @@ class ExternalURL extends DBVarchar
      *
      * @param null|mixed $title
      * @param null|mixed $params
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::scaffoldFormField: Changed default value for parameter $params in DBField::scaffoldFormField() from null to []
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::scaffoldFormField: Changed type of parameter $params in DBField::scaffoldFormField() from dynamic to array
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::scaffoldFormField: Changed type of parameter $title in DBField::scaffoldFormField() from dynamic to string|null
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::scaffoldFormField: Changed return type for method DBField::scaffoldFormField() from dynamic to FormField|null
      */
     #[Override]
     public function scaffoldFormField($title = null, $params = null)
@@ -96,6 +100,7 @@ class ExternalURL extends DBVarchar
         return $field;
     }
 
+    /** @TODO SSU RECTOR UPGRADE TASK - DBField::forTemplate: Changed return type for method DBField::forTemplate() from dynamic to string */
     #[Override]
     public function forTemplate()
     {
@@ -106,6 +111,10 @@ class ExternalURL extends DBVarchar
         return '';
     }
 
+    /** @TODO SSU RECTOR UPGRADE TASK - DBField::saveInto: Changed type of parameter $dataObject in DBField::saveInto() from dynamic to ModelData
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::saveInto: Renamed parameter $dataObject in DBField::saveInto() to $model
+     * @TODO SSU RECTOR UPGRADE TASK - DBField::saveInto: Changed return type for method DBField::saveInto() from dynamic to void
+     */
     #[Override]
     public function saveInto($dataObject)
     {
